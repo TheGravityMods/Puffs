@@ -1,0 +1,115 @@
+{
+  "display": {
+    "icon": {
+      "item": "puffs:chorupuff_root"
+    },
+    "title": {
+      "translate": "advancements.puffs.shear_all_puff_types.title"
+    },
+    "description": {
+      "translate": "advancements.puffs.shear_all_puff_types.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "puffs:puffs/root",
+  "criteria": {
+    "puffs:chorupuff": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:shears"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "puffs:chorupuff"
+            }
+          }
+        ]
+      }
+    },
+    "puffs:bombpuff": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:shears"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "puffs:bombpuff"
+            }
+          }
+        ]
+      }
+    },
+    "puffs:flowerpuff": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:shears"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "puffs:flowerpuff"
+            }
+          }
+        ]
+      }
+    },
+    "puffs:lavapuff": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:shears"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "puffs:lavapuff"
+            }
+          }
+        ]
+      }
+    },
+    "puffs:waterpuff": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "item": {
+          "items": [
+            "minecraft:shears"
+          ]
+        },
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "puffs:waterpuff"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

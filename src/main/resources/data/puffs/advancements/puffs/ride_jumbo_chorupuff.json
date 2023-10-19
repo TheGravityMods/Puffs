@@ -1,0 +1,33 @@
+{
+  "display": {
+    "icon": {
+      "item": "puffs:puff_display_item",
+      "nbt": "{JumboPuff:true}"
+    },
+    "title": {
+      "translate": "advancements.puffs.ride_jumbo_chorupuff.title"
+    },
+    "description": {
+      "translate": "advancements.puffs.ride_jumbo_chorupuff.description"
+    }
+  },
+  "parent": "puffs:puffs/root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:started_riding",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "vehicle": {
+                "type": "puffs:jumbo_chorupuff"
+              }
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  }
+}

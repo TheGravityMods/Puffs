@@ -1,0 +1,49 @@
+{
+  "item.puffs.chorupuff_spawn_egg": "Chorupuff Spawn Egg",
+  "item.puffs.bombpuff_spawn_egg": "Bombpuff Spawn Egg",
+  "item.puffs.flowerpuff_spawn_egg": "Flowerpuff Spawn Egg",
+  "item.puffs.lavapuff_spawn_egg": "Lavapuff Spawn Egg",
+  "item.puffs.waterpuff_spawn_egg": "Waterpuff Spawn Egg",
+
+  "item.puffs.jumbo_chorupuff_spawn_egg": "Jumbo Chorupuff Spawn Egg",
+
+  "item.puffs.chorupuff_root": "Chorupuff Root",
+  "item.puffs.bombpuff_root": "Bombpuff Root",
+  "item.puffs.lavapuff_root": "Lavapuff Root",
+  "item.puffs.waterpuff_root": "Waterpuff Root",
+  "item.puffs.flowerpuff_poppy_root": "Flowerpuff Poppy Root",
+  "item.puffs.flowerpuff_allium_root": "Flowerpuff Allium Root",
+  "item.puffs.flowerpuff_azure_bluet_root": "Flowerpuff Azure Bluet Root",
+  "item.puffs.flowerpuff_blue_orchid_root": "Flowerpuff Blue Orchid Root",
+  "item.puffs.flowerpuff_cornflower_root": "Flowerpuff Cornflower Root",
+  "item.puffs.flowerpuff_dandelion_root": "Flowerpuff Dandelion Root",
+  "item.puffs.flowerpuff_lily_of_the_valley_root": "Flowerpuff Lily Of The Valley Root",
+  "item.puffs.flowerpuff_orange_tulip_root": "Flowerpuff Orange Tulip Root",
+  "item.puffs.flowerpuff_oxeye_daisy_root": "Flowerpuff Oxeye Daisy Root",
+  "item.puffs.flowerpuff_pink_tulip_root": "Flowerpuff Pink Tulip Root",
+  "item.puffs.flowerpuff_red_tulip_root": "Flowerpuff Red Tulip Root",
+  "item.puffs.flowerpuff_white_tulip_root": "Flowerpuff White Tulip Root",
+  "item.puffs.flowerpuff_wither_rose_root": "Flowerpuff Wither Rose Poppy Root",
+
+  "item.puffs.bomb": "Bomb",
+
+  "entity.puffs.chorupuff": "Chorupuff",
+  "entity.puffs.bombpuff": "Bombpuff",
+  "entity.puffs.flowerpuff": "Flowerpuff",
+  "entity.puffs.lavapuff": "Lavapuff",
+  "entity.puffs.waterpuff": "Waterpuff",
+
+  "entity.puffs.jumbo_chorupuff": "Jumbo Chorupuff",
+
+  "itemGroup.puffs_tab": "Puffs Tab",
+  "itemGroup.jumbo_puffs_tab": "Jumbo Puffs Tab",
+
+  "advancements.puffs.leash_all_puff_types.title" : "I Caught Them All!",
+  "advancements.puffs.leash_all_puff_types.description" : "Get each Puff type on a Lead and become the very best like no one ever was",
+  "advancements.puffs.shear_all_puff_types.title" : "Straight From The Roots",
+  "advancements.puffs.shear_all_puff_types.description" : "Become the master of all the roots by collecting them all",
+  "advancements.puffs.ride_jumbo_chorupuff.title": "Land Strider",
+  "advancements.puffs.ride_jumbo_chorupuff.description": "Ride a jumbopuff",
+  "advancements.puffs.root.title": "Puffs",
+  "advancements.puffs.root.description": "Do you think i'll become puffy?"
+}

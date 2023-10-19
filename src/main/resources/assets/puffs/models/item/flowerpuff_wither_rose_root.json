@@ -1,0 +1,6 @@
+{
+  "parent" : "puffs:item/puff_root",
+  "textures" : {
+    "puff_root_texture" : "puffs:item/flowerpuff_roots/wither_rose_root"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "criteria": {
+    "inventory_changed": {
+      "conditions": {},
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/white_concrete.png",
+    "description": {
+      "translate": "advancements.puffs.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "puffs:puff_display_item"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.puffs.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "inventory_changed"
+    ]
+  ]
+}
