@@ -1,20 +1,21 @@
 package net.gravity.puffs;
 
 import com.mojang.logging.LogUtils;
+import net.gravity.puffs.block.ModBlocks;
+import net.gravity.puffs.block.entity.ModBlockEntities;
 import net.gravity.puffs.entity.ModEntities;
 import net.gravity.puffs.entity.client.JumboPuffRenderer;
 import net.gravity.puffs.entity.client.PuffRenderer;
 import net.gravity.puffs.entity.client.WaterProjectileRenderer;
 import net.gravity.puffs.item.ModItems;
+import net.gravity.puffs.screen.ModMenuTypes;
+import net.gravity.puffs.screen.PuffTransformerMenu;
+import net.gravity.puffs.screen.PuffTransformerScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.level.ColorResolver;
-import net.minecraft.world.level.FoliageColor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -32,7 +33,10 @@ public class PuffsMain {
     public PuffsMain() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
     }

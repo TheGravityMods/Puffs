@@ -51,7 +51,7 @@ public class Chorupuff extends Puff {
     }
 
     protected void customServerAiStep() {
-        if(!isLeashed()) {
+        if(!isLeashed() && !(this.hurtTime >= 1)) {
             if (!this.isTame() && !shouldPanic()) {
                 if (this.tickCount >= this.getRandom().nextIntBetweenInclusive(80, 120)) {
                     this.teleport();

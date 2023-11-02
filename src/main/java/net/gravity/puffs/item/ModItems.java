@@ -29,17 +29,18 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.JUMBO_CHORUPUFF, 4661575,8149884, new Item.Properties().tab(ModCreativeTabs.JUMBO_PUFFS_TAB)));
     public static final RegistryObject<Item> BOMB = ITEMS.register("bomb",
             () -> new BombItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
-    public static final RegistryObject<Item> PUFF_ROOT = ITEMS.register("puff_root",
-            () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CHORUPUFF_ROOT = ITEMS.register("chorupuff_root",
-            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.CHORUPUFF.get()));
     public static final RegistryObject<Item> BOMBPUFF_ROOT = ITEMS.register("bombpuff_root",
-            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
-
+            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.BOMBPUFF.get()));
     public static final RegistryObject<Item> LAVAPUFF_ROOT = ITEMS.register("lavapuff_root",
-            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.LAVAPUFF.get()));
     public static final RegistryObject<Item> WATERPUFF_ROOT = ITEMS.register("waterpuff_root",
-            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.WATERPUFF.get()));
+//    public static final RegistryObject<Item> BLANKPUFF_ROOT_LV_1 = ITEMS.register("blankpuff_root_lv_1",
+//            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+//    public static final RegistryObject<Item> BLANKPUFF_ROOT_LV_2 = ITEMS.register("blankpuff_root_lv_2",
+//            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
 
     static {
         registerFlowerRoots();
@@ -47,7 +48,7 @@ public class ModItems {
 
     public static void registerFlowerRoots() {
         for(Flowerpuff.FlowerType flowerType: Flowerpuff.FlowerType.values()){
-            ITEMS.register("flowerpuff_" + flowerType.getName() + "_root", () -> new Item(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+            ITEMS.register("flowerpuff_" + flowerType.getName() + "_root", () -> new FlowerPuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), flowerType));
         }
     }
     public static final RegistryObject<Item> PUFF_DISPLAY_ITEM = ITEMS.register("puff_display_item",

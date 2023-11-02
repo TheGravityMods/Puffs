@@ -163,10 +163,10 @@ public class Flowerpuff extends Puff {
         if(!pCompound.contains("Disguised")) {
             pCompound.putBoolean("Disguised", this.entityData.get(DATA_IS_DISGUISED));
         }
-        if(!pCompound.contains("Disguised")) {
+        if(!pCompound.contains("Pot")) {
             pCompound.putBoolean("Pot", this.entityData.get(DATA_HAS_POT));
         }
-        if(!pCompound.contains("Disguised")) {
+        if(!pCompound.contains("Type")) {
             pCompound.putString("Type", this.entityData.get(DATA_TYPE));
         }
     }
