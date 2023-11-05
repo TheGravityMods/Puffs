@@ -24,7 +24,7 @@ public class PuffTransformerMenu extends AbstractContainerMenu {
     public PuffTransformerMenu(int pContainerId, Container machine, ContainerData machineData) {
         super(ModMenuTypes.PUFF_TRANSFORMER_MENU.get(), pContainerId);
         checkContainerSize(machine, 1);
-        checkContainerDataCount(machineData, 1);
+        checkContainerDataCount(machineData, 2);
         this.machine = machine;
         this.data = machineData;
 
@@ -41,6 +41,10 @@ public class PuffTransformerMenu extends AbstractContainerMenu {
         addDataSlots(data);
     }
 
+    public ItemStack getRoot() {
+        return this.machine.getItem(0);
+    }
+
     public PuffTransformerMenu(int i, Inventory inventory, FriendlyByteBuf friendlyByteBuf) {
         this(i);
     }
@@ -52,6 +56,6 @@ public class PuffTransformerMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return this.machine.stillValid(player);
+        return true;
     }
 }

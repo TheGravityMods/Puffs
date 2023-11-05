@@ -8,6 +8,8 @@ import net.gravity.puffs.screen.PuffTransformerScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,10 +25,12 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -89,18 +93,8 @@ public class PuffTransformerBlock extends BaseEntityBlock {
                                  Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if (entity instanceof PuffTransformerBlockEntity puffTransformerBlock) {
-                if(pPlayer.getItemInHand(pHand).getItem() instanceof PuffRootItem && puffTransformerBlock.bookAccess.getItem(0).isEmpty()) {
-                    ItemStack itemStack = new ItemStack(pPlayer.getItemInHand(pHand).getItem());
-                    if(puffTransformerBlock.bookAccess.getItem(0).isEmpty()) {
-                        puffTransformerBlock.bookAccess.setItem(0, itemStack);
-                        if (!pPlayer.getAbilities().instabuild) {
-                            pPlayer.getItemInHand(pHand).shrink(1);
-                        }
-                    }
-                } else {
-                    NetworkHooks.openScreen(((ServerPlayer) pPlayer), (PuffTransformerBlockEntity) entity, pPos);
-                }
+            if (entity instanceof PuffTransformerBlockEntity) {
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (PuffTransformerBlockEntity) entity, pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -108,6 +102,36 @@ public class PuffTransformerBlock extends BaseEntityBlock {
 
         return InteractionResult.sidedSuccess(pLevel.isClientSide());
     }
+
+    public static boolean tryPlaceBook(@javax.annotation.Nullable Player pPlayer, Level pLevel, BlockPos pPos, BlockState pState, ItemStack pBook) {
+        if (!hasBook(pLevel, pPos)) {
+            if (!pLevel.isClientSide) {
+                placeBook(pPlayer, pLevel, pPos, pState, pBook);
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static void placeBook(@javax.annotation.Nullable Player pPlayer, Level pLevel, BlockPos pPos, BlockState pState, ItemStack pBook) {
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if (blockentity instanceof PuffTransformerBlockEntity puffTransformerBlock) {
+            puffTransformerBlock.setRoot(pBook.split(1));
+            pLevel.playSound((Player)null, pPos, SoundEvents.BOOK_PUT, SoundSource.BLOCKS, 1.0F, 1.0F);
+            pLevel.gameEvent(pPlayer, GameEvent.BLOCK_CHANGE, pPos);
+        }
+
+    }
+    private static boolean hasBook(Level pLevel, BlockPos pPos) {
+        BlockEntity blockentity = pLevel.getBlockEntity(pPos);
+        if (blockentity instanceof PuffTransformerBlockEntity puffTransformerBlock) {
+            return puffTransformerBlock.hasRoot();
+        }
+        return false;
+    }
+
 
     @Nullable
     @Override

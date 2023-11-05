@@ -48,6 +48,7 @@ public class Waterpuff extends Puff implements RangedAttackMob {
     }
 
     private void spit(LivingEntity pTarget) {
+        jumpFromGround();
         WaterProjectile waterProjectile = new WaterProjectile(this.level, this);
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - waterProjectile.getY();
@@ -55,7 +56,7 @@ public class Waterpuff extends Puff implements RangedAttackMob {
         double d3 = Math.sqrt(d0 * d0 + d2 * d2) * (double)0.2F;
         waterProjectile.shoot(d0, d1 + d3, d2, 1.5F, 10.0F);
         if (!this.isSilent()) {
-            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.LLAMA_SPIT, this.getSoundSource(), 1.0F, 1.75F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
+            this.level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.FOX_SPIT, this.getSoundSource(), 2.0F, 1.1F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
         }
 
         this.level.addFreshEntity(waterProjectile);

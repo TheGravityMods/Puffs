@@ -64,6 +64,8 @@ public class PuffsMain {
             EntityRenderers.register(ModEntities.BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.WATER_PROJECTILE.get(), WaterProjectileRenderer::new);
             EntityRenderers.register(ModEntities.JUMBO_CHORUPUFF.get(), JumboPuffRenderer::new);
+
+            MenuScreens.register(ModMenuTypes.PUFF_TRANSFORMER_MENU.get(), PuffTransformerScreen::new);
         }
     }
 }

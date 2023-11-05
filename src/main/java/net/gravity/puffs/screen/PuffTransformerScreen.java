@@ -11,16 +11,16 @@ import net.gravity.puffs.entity.custom.puff.Flowerpuff;
 import net.gravity.puffs.entity.custom.puff.Puff;
 import net.gravity.puffs.item.custom.FlowerPuffRootItem;
 import net.gravity.puffs.item.custom.PuffRootItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.GameNarrator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.font.TextFieldHelper;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
@@ -29,16 +29,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.LecternMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.properties.WoodType;
-import org.jline.keymap.KeyMap;
 
-import java.awt.event.KeyEvent;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTransformerMenu> {
     private final PuffTransformerMenu menu;
@@ -50,79 +44,86 @@ public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTran
     private int guiTop;
     private boolean isDragging = false;
     private int dragX, dragY;
-    private int frame;
-    /**
-     * The index of the line that is being edited.
-     */
-    private int line;
-    private TextFieldHelper signField;
-    private final String[] messages;
-    private String prefix = "> ";
+    private int currentLine = 0;
+    private final TerminalLineBox[] lines = new TerminalLineBox[16];
+    private final String prefix = "> ";
 
-    public PuffTransformerScreen(PuffTransformerMenu pMenu) {
+    public PuffTransformerScreen(PuffTransformerMenu pMenu, Inventory inventory, Component component) {
         super(GameNarrator.NO_TITLE);
         this.menu = pMenu;
         this.imageWidth = 220;
         this.imageHeight = 155;
-        this.messages = IntStream.range(0, 16).mapToObj((p_169818_) -> {
-            if (p_169818_ == 0) {
-                return Component.literal(prefix);
-            } else {
-                return Component.literal("");
-            }
-        }).map(Component::getString).toArray(String[]::new);
     }
+
     public PuffTransformerMenu getMenu() {
         return this.menu;
     }
 
+    public void tick() {
+        super.tick();
+        for(TerminalLineBox editBox : lines) {
+            if (editBox != null) {
+                editBox.tick();
+            }
+        }
+    }
     @Override
     protected void init() {
         super.init();
         this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
-        this.signField = new TextFieldHelper(() -> {
-            return this.messages[this.line];
-        }, (p_169824_) -> {
-            this.messages[this.line] = p_169824_;
-            this.setMessage(this.line, p_169824_);
-        }, TextFieldHelper.createClipboardGetter(this.minecraft), TextFieldHelper.createClipboardSetter(this.minecraft), (p_169822_) -> {
-            return this.minecraft.font.width(p_169822_) <= 91;
-        });
+        for (int i = 0; i < 16; i++) {
+            this.lines[i] = new TerminalLineBox(this.font, this.guiLeft + 123, this.guiTop + 30 + i * 10, 90, 9, Component.empty());
+            this.lines[i].setMaxLength(120);
+            this.lines[i].setBordered(false);
+            this.lines[i].setVisible(true);
+            this.lines[i].setTextColor(4711204);
+            this.lines[i].setValue("");
+            this.lines[i].setWidth(91);
+            this.addWidget(this.lines[i]);
+        }
+        lines[0].setFocus(true);
+        lines[0].setValue(prefix);
+        lines[0].moveCursorToEnd();
         guiLeft = (width - imageWidth) / 2;
         guiTop = (height - imageHeight) / 2;
     }
 
-    private void setMessage(int line, String text) {
-        this.messages[line] = text;
-    }
-
     @Override
-    public void tick() {
-        ++this.frame;
+    public boolean isPauseScreen() {
+        return false;
     }
 
     public boolean charTyped(char pCodePoint, int pModifiers) {
-        this.signField.charTyped(pCodePoint);
+        this.lines[currentLine].charTyped(pCodePoint, pModifiers);
         return true;
     }
 
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
-        if (this.minecraft.font.width(messages[line]) >= 90 && line + 1 <= 14) {
-            this.line = this.line + 1;
-        }
-        if (pKeyCode == 265) {
-            this.line = this.line - 1 & 14;
-            this.signField.setCursorToEnd();
+        if (pKeyCode == 257) {
+            if (currentLine + 1 <= 13) {
+                this.lines[currentLine].setCanLoseFocus(true);
+                this.lines[currentLine].setEditable(false);
+                this.lines[currentLine].setFocus(false);
+                this.currentLine = this.currentLine + 1;
+                PuffsMain.LOGGER.info(String.valueOf(currentLine));
+                this.lines[currentLine].setValue(prefix);
+                this.lines[currentLine].setFocus(true);
+                this.lines[currentLine].setCanLoseFocus(false);
+            }
+            if (currentLine + 1 == 15) {
+                this.lines[currentLine].setCanLoseFocus(true);
+                this.lines[currentLine].setEditable(false);
+                this.lines[currentLine].setFocus(false);
+                this.currentLine = this.currentLine + 1;
+                this.lines[currentLine].setValue("");
+                this.lines[currentLine].setFocus(false);
+                this.lines[currentLine].setCanLoseFocus(true);
+            }
             return true;
-        } else if (messages[line].startsWith(prefix) && pKeyCode == 259 && signField.getCursorPos() - 1 <= 1) {
+        } else if (pKeyCode == 259 && lines[currentLine].getValue().startsWith(prefix) && lines[currentLine].getCursorPosition() - 1 <= 1) {
             return false;
-        } else if (pKeyCode != 264 && pKeyCode != 257 && pKeyCode != 335) {
-            return this.signField.keyPressed(pKeyCode) || super.keyPressed(pKeyCode, pScanCode, pModifiers);
         } else {
-            this.line = this.line + 1 & 14;
-            this.signField.insertText(prefix);
-            this.signField.setCursorToEnd();
-            return true;
+            return this.lines[currentLine].keyPressed(pKeyCode, pScanCode, pModifiers) || super.keyPressed(pKeyCode, pScanCode, pModifiers);
         }
     }
 
@@ -132,8 +133,6 @@ public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTran
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        int x = (width - imageWidth) / 2 + guiLeft;
-        int y = (height - imageHeight) / 2 + guiTop;
         this.blit(pPoseStack, guiLeft, guiTop, 0, 0, imageWidth, imageHeight);
     }
 
@@ -146,6 +145,9 @@ public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTran
                 dragY = (int) mouseY - guiTop;
             }
         }
+        if (this.lines[currentLine].mouseClicked(mouseX, mouseY, button)) {
+            return true;
+        }
         return super.mouseClicked(mouseX, mouseY, button);
     }
 
@@ -154,6 +156,10 @@ public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTran
         if (isDragging) {
             guiLeft = (int) mouseX - dragX;
             guiTop = (int) mouseY - dragY;
+            for (int i = 0; i < 16; i++) {
+                this.lines[i].setX(guiLeft + 123);
+                this.lines[i].y = guiTop + 30 + i * 10;
+            }
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
@@ -164,27 +170,29 @@ public class PuffTransformerScreen extends Screen implements MenuAccess<PuffTran
         return super.mouseReleased(mouseX, mouseY, button);
     }
 
+
     @Override
     public void render(PoseStack pPoseStack, int mouseX, int mouseY, float delta) {
         renderBackground(pPoseStack);
         super.render(pPoseStack, mouseX, mouseY, delta);
-        for (int i = 0; i < messages.length; i++) {
-            if (!Objects.equals(messages[i], "") || messages[i] != null) {
-                drawString(pPoseStack, Minecraft.getInstance().font, messages[i], guiLeft + 10, guiTop + (i + 1) * this.font.wordWrapHeight(messages[i], this.font.width(messages[i])), 4711204);
-            }
+//        for (int i = 0; i < lines.length; i++) {
+//            if (Objects.equals(lines[i].getValue(), "")) {
+//                lines[i].getValue();
+//            }
+//            drawString(pPoseStack, Minecraft.getInstance().font, lines[i].getValue(), guiLeft + 10, guiTop + (i + 1) * this.font.wordWrapHeight(lines[i].getValue(), this.font.width(lines[i].getValue())), 4711204);
+//            // 4711204
+//        }
+        for (TerminalLineBox editBox : lines) {
+            editBox.render(pPoseStack, mouseX, mouseY, delta);
         }
-        boolean flag1 = this.frame / 6 % 2 == 0;
-        if (flag1) {
-            this.font.draw(pPoseStack, "|", guiLeft + 10 + ((float) this.font.width(messages[line]) + 1), guiTop + (messages[line] != "" ? (line + 1) * this.font.wordWrapHeight(messages[line], this.font.width(messages[line])) : line * 9), 4711204);
-        }
-        if (menu.getCarried().getItem() instanceof PuffRootItem puffRootItem) {
+        if (this.menu.getRoot().getItem() instanceof PuffRootItem puffRootItem) {
             Puff puff = puffRootItem.getAssociatedPuff().create(this.minecraft.level);
             if (puff instanceof Flowerpuff flowerpuff && puffRootItem instanceof FlowerPuffRootItem flowerPuffRootItem) {
                 flowerpuff.setFlowerType(flowerPuffRootItem.getAssociatedFlowerType());
             }
-            drawCenteredString(pPoseStack, Minecraft.getInstance().font, puff.getName(), guiLeft + 160, guiTop + 13, 16777215);
-            renderEntityInInventory(guiLeft + 152, guiTop + 55, 35, mouseX, mouseY, puff);
-            renderGuiItem(new ItemStack(puffRootItem), guiLeft + 169, guiTop + 35, 30);
+            drawCenteredString(pPoseStack, Minecraft.getInstance().font, puff.getName(), guiLeft + 165, guiTop + 13, 16777215);
+            renderEntityInInventory(guiLeft + 159, guiTop + 55, 35, mouseX, mouseY, puff);
+            renderGuiItem(new ItemStack(puffRootItem), guiLeft + 174, guiTop + 35, 30);
         }
     }
 

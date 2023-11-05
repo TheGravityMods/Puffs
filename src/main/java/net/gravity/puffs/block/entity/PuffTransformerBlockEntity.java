@@ -107,7 +107,7 @@ public class PuffTransformerBlockEntity extends BlockEntity implements MenuProvi
             if (PuffTransformerBlockEntity.this.level.getBlockEntity(PuffTransformerBlockEntity.this.worldPosition) != PuffTransformerBlockEntity.this) {
                 return false;
             } else {
-                return p_59588_.distanceToSqr((double)PuffTransformerBlockEntity.this.worldPosition.getX() + 0.5D, (double)PuffTransformerBlockEntity.this.worldPosition.getY() + 0.5D, (double)PuffTransformerBlockEntity.this.worldPosition.getZ() + 0.5D) > 64.0D ? false : PuffTransformerBlockEntity.this.hasRoot();
+                return !(p_59588_.distanceToSqr((double) PuffTransformerBlockEntity.this.worldPosition.getX() + 0.5D, (double) PuffTransformerBlockEntity.this.worldPosition.getY() + 0.5D, (double) PuffTransformerBlockEntity.this.worldPosition.getZ() + 0.5D) > 64.0D) && PuffTransformerBlockEntity.this.hasRoot();
             }
         }
 
@@ -147,12 +147,18 @@ public class PuffTransformerBlockEntity extends BlockEntity implements MenuProvi
     };
 
     ItemStack root = ItemStack.EMPTY;
-    public boolean hasRoot() {
-        return this.root.getItem() instanceof PuffRootItem;
-    }
 
     public ItemStack getRoot() {
         return this.root;
+    }
+
+    public void setRoot(ItemStack itemStack) {
+        this.root = itemStack;
+        this.setChanged();
+    }
+
+    public boolean hasRoot() {
+        return !this.root.isEmpty() && this.root.getItem() instanceof PuffRootItem;
     }
 
     public PuffTransformerBlockEntity(BlockPos pos, BlockState state) {
@@ -230,6 +236,7 @@ public class PuffTransformerBlockEntity extends BlockEntity implements MenuProvi
                     if(puff instanceof Flowerpuff flowerpuff && puffRootItem instanceof FlowerPuffRootItem flowerPuffRootItem) {
                         flowerpuff.setFlowerType(flowerPuffRootItem.getAssociatedFlowerType());
                     }
+                    pEntity.resetProgress();
                     level.addFreshEntity(puff);
                     pEntity.bookAccess.removeItem(0, 1);
                 }
