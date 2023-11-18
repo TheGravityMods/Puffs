@@ -1,17 +1,12 @@
 package net.gravity.puffs;
 
 import com.mojang.logging.LogUtils;
-import net.gravity.puffs.block.ModBlocks;
-import net.gravity.puffs.block.entity.ModBlockEntities;
 import net.gravity.puffs.entity.ModEntities;
 import net.gravity.puffs.entity.client.JumboPuffRenderer;
 import net.gravity.puffs.entity.client.PuffRenderer;
 import net.gravity.puffs.entity.client.WaterProjectileRenderer;
 import net.gravity.puffs.item.ModItems;
 import net.gravity.puffs.screen.ModMenuTypes;
-import net.gravity.puffs.screen.PuffTransformerMenu;
-import net.gravity.puffs.screen.PuffTransformerScreen;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,9 +28,7 @@ public class PuffsMain {
     public PuffsMain() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
-        ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
@@ -64,8 +57,6 @@ public class PuffsMain {
             EntityRenderers.register(ModEntities.BOMB.get(), ThrownItemRenderer::new);
             EntityRenderers.register(ModEntities.WATER_PROJECTILE.get(), WaterProjectileRenderer::new);
             EntityRenderers.register(ModEntities.JUMBO_CHORUPUFF.get(), JumboPuffRenderer::new);
-
-            MenuScreens.register(ModMenuTypes.PUFF_TRANSFORMER_MENU.get(), PuffTransformerScreen::new);
         }
     }
 }

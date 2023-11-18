@@ -130,7 +130,6 @@ public class Lavapuff extends Puff {
          */
         public boolean canUse() {
             if (mob.isInWaterRainOrBubble()) {
-                PuffsMain.LOGGER.debug("in water");
                 return false;
             }
             if (this.mob.isVehicle()) {
@@ -141,11 +140,11 @@ public class Lavapuff extends Puff {
                     return false;
                 } else {
                     double d0 = this.mob.distanceToSqr(this.target);
-                    if (!(d0 < 4.0D) && !(d0 > 16.0D)) {
+                    if (!(d0 < 2.0D) && !(d0 > 16.0D)) {
                         if (!this.mob.isOnGround()) {
                             return false;
                         } else {
-                            return this.mob.getRandom().nextInt(reducedTickDelay(5)) == 0;
+                            return this.mob.getRandom().nextInt(reducedTickDelay(2)) == 0;
                         }
                     } else {
                         return false;
@@ -166,7 +165,7 @@ public class Lavapuff extends Puff {
          */
         public void start() {
             Vec3 vec3 = this.mob.getDeltaMovement();
-            Vec3 vec31 = new Vec3(this.target.getX() - this.mob.getX(), 0.0D, this.target.getZ() - this.mob.getZ());
+            Vec3 vec31 = new Vec3(this.target.getX() - this.mob.getX(), 0.2D, this.target.getZ() - this.mob.getZ());
             if (vec31.lengthSqr() > 1.0E-7D) {
                 vec31 = vec31.normalize().scale(0.4D).add(vec3.scale(0.2D));
             }

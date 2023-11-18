@@ -55,9 +55,7 @@ public class WaterProjectile extends Projectile {
         double d1 = this.getY() + vec3.y;
         double d2 = this.getZ() + vec3.z;
         this.updateRotation();
-        if (this.level.getBlockStates(this.getBoundingBox()).noneMatch(BlockBehaviour.BlockStateBase::isAir)) {
-            this.discard();
-        } else if (this.isInWaterOrBubble()) {
+        if (this.isInWaterOrBubble()) {
             this.discard();
         } else {
             this.setDeltaMovement(vec3.scale((double)0.99F));
@@ -92,13 +90,11 @@ public class WaterProjectile extends Projectile {
         super.onHitBlock(pResult);
         if(level.isClientSide) {
             for(int i = 0; i < 7; ++i) {
-                this.level.addParticle(ParticleTypes.SPLASH, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
+                this.level.addParticle(ParticleTypes.SPLASH, this.getX(), this.getY(), this.getZ(), 0, 0.5, 0);
             }
         }
         if (!this.level.isClientSide) {
-            if(!pResult.isInside()) {
-                this.discard();
-            }
+            this.discard();
         }
 
     }

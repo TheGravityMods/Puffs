@@ -4,7 +4,6 @@ import net.gravity.puffs.entity.custom.WaterProjectile;
 import net.gravity.puffs.item.ModItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
@@ -43,12 +42,11 @@ public class Waterpuff extends Puff implements RangedAttackMob {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25D, 10, 15.0F));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10 ,true, true, Entity::isOnFire));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, LivingEntity.class, 10 ,true, true, LivingEntity::isOnFire));
         super.registerGoals();
     }
 
     private void spit(LivingEntity pTarget) {
-        jumpFromGround();
         WaterProjectile waterProjectile = new WaterProjectile(this.level, this);
         double d0 = pTarget.getX() - this.getX();
         double d1 = pTarget.getY(0.3333333333333333D) - waterProjectile.getY();

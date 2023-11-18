@@ -37,10 +37,8 @@ public class ModItems {
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.LAVAPUFF.get()));
     public static final RegistryObject<Item> WATERPUFF_ROOT = ITEMS.register("waterpuff_root",
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.WATERPUFF.get()));
-//    public static final RegistryObject<Item> BLANKPUFF_ROOT_LV_1 = ITEMS.register("blankpuff_root_lv_1",
-//            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
-//    public static final RegistryObject<Item> BLANKPUFF_ROOT_LV_2 = ITEMS.register("blankpuff_root_lv_2",
-//            () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+    public static final RegistryObject<Item> PUFF_JOURNAL_BOOK = ITEMS.register("puff_journal_book",
+            () -> new PuffJournalBookItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
 
     static {
         registerFlowerRoots();

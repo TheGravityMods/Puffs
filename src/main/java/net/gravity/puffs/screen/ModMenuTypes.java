@@ -13,8 +13,8 @@ public class ModMenuTypes {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(ForgeRegistries.MENU_TYPES, PuffsMain.MOD_ID);
 
-    public static final RegistryObject<MenuType<PuffTransformerMenu>> PUFF_TRANSFORMER_MENU =
-            registerMenuType(PuffTransformerMenu::new, "puff_transformer_menu");
+//    public static final RegistryObject<MenuType<PuffTransformerMenu>> PUFF_TRANSFORMER_MENU =
+//            registerMenuType(PuffTransformerMenu::new, "puff_transformer_menu");
 
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory,
