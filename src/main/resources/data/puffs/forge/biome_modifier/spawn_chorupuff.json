@@ -1,0 +1,12 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:small_end_islands"
+  ],
+  "spawners": {
+    "type": "puffs:chorupuff",
+    "weight": 150,
+    "minCount": 0,
+    "maxCount": 2
+  }
+}

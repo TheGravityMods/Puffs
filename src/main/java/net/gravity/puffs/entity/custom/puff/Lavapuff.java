@@ -2,7 +2,11 @@ package net.gravity.puffs.entity.custom.puff;
 
 import net.gravity.puffs.PuffsMain;
 import net.gravity.puffs.item.ModItems;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -13,9 +17,12 @@ import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
@@ -71,7 +78,7 @@ public class Lavapuff extends Puff {
 
     public void aiStep() {
         if (level.isClientSide) {
-            if(this.random.nextInt(10) == 0) {
+            if(this.random.nextInt(10) == 0 && !isInLava()) {
                 this.level.addParticle(ParticleTypes.DRIPPING_LAVA, this.getRandomX(0.5D), this.getRandomY() - 0.25D, this.getRandomZ(0.5D), (this.random.nextDouble() - 0.5D) * 2.0D, -this.random.nextDouble(), (this.random.nextDouble() - 0.5D) * 2.0D);
             }
         } else {
@@ -82,6 +89,17 @@ public class Lavapuff extends Puff {
 
         super.aiStep();
     }
+
+    public static boolean checkLavapuffSpawnRules(EntityType<Lavapuff> lavapuffEntity, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, RandomSource pRandom) {
+        BlockPos.MutableBlockPos blockpos$mutableblockpos = pPos.mutable();
+
+        do {
+            blockpos$mutableblockpos.move(Direction.UP);
+        } while(pLevel.getFluidState(blockpos$mutableblockpos).is(FluidTags.LAVA));
+
+        return pLevel.getBlockState(blockpos$mutableblockpos).isAir();
+    }
+
 
     static class LavapuffAttackGoal extends MeleeAttackGoal {
         public LavapuffAttackGoal(Lavapuff lavapuff) {

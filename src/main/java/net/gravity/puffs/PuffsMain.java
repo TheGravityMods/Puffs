@@ -1,17 +1,20 @@
 package net.gravity.puffs;
 
 import com.mojang.logging.LogUtils;
+import net.gravity.puffs.effect.ModEffects;
 import net.gravity.puffs.entity.ModEntities;
 import net.gravity.puffs.entity.client.JumboPuffRenderer;
 import net.gravity.puffs.entity.client.PuffRenderer;
 import net.gravity.puffs.entity.client.WaterProjectileRenderer;
+import net.gravity.puffs.entity.custom.puff.Lavapuff;
 import net.gravity.puffs.item.ModItems;
-import net.gravity.puffs.screen.ModMenuTypes;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,21 +32,39 @@ public class PuffsMain {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
-        ModMenuTypes.register(modEventBus);
+        ModEffects.register(modEventBus);
+//        ModBiomes.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-
+            SpawnPlacements.register(ModEntities.LAVAPUFF.get(),
+                    SpawnPlacements.Type.IN_LAVA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Lavapuff::checkLavapuffSpawnRules);
+            SpawnPlacements.register(ModEntities.WATERPUFF.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Mob::checkMobSpawnRules);
+            SpawnPlacements.register(ModEntities.FLOWERPUFF.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Mob::checkMobSpawnRules);
+            SpawnPlacements.register(ModEntities.CHORUPUFF.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Mob::checkMobSpawnRules);
+            SpawnPlacements.register(ModEntities.BOMBPUFF.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Mob::checkMobSpawnRules);
         });
+//        initEndBiomes();
     }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
-    }
+//    private void initEndBiomes(){
+//        TheEndBiomes.addHighlandsBiome(ModBiomes.CHORUS_FOREST.getKey(), 0.5);
+//    }
+//    @SubscribeEvent
+//    public void onServerStarting(ServerStartingEvent event) {
+//        SurfaceRule.addEndSurfaceRules(event.getServer().getWorldData(), ModSurfaceRules.makeRules());
+//    }
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {

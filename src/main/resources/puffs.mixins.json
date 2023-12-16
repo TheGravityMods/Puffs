@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.gravity.puffs.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "ChorusFruitItemMixin",
+    "VanillaGuiOverlayMixin"
+  ],
+  "client": [
+    "GameRendererMixin",
+    "GuiMixin",
+    "LocalPlayerMixin"
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "puffs.refmap.json"
+}

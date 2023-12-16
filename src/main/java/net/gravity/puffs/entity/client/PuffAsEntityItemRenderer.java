@@ -40,8 +40,8 @@ import java.util.Map;
 
 public class PuffAsEntityItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static int runningTicks = 0;
-    private Map<String, Entity> puffRenderList = new HashMap();
-    private List<EntityType> puffAsItemRenderList = new ArrayList<>();
+    private final Map<String, Entity> puffRenderList = new HashMap<>();
+    private final List<EntityType<? extends Puff>> puffAsItemRenderList = new ArrayList<>();
 
     public static void addTick() {
         runningTicks++;

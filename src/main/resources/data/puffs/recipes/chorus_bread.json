@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#C#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:popped_chorus_fruit"
+    },
+    "C": {
+      "item": "minecraft:chorus_flower"
+    }
+  },
+  "result": {
+    "item": "puffs:chorus_bread",
+    "count": 2
+  }
+}

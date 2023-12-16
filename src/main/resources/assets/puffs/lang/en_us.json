@@ -8,6 +8,7 @@
   "item.puffs.jumbo_chorupuff_spawn_egg": "Jumbo Chorupuff Spawn Egg",
 
   "item.puffs.puff_journal_book": "Puffs Journal",
+  "item.puffs.chorus_bread": "Chorus Bread",
   "item.puffs.chorupuff_root": "Chorupuff Root",
   "item.puffs.bombpuff_root": "Bombpuff Root",
   "item.puffs.lavapuff_root": "Lavapuff Root",
@@ -24,9 +25,7 @@
   "item.puffs.flowerpuff_pink_tulip_root": "Flowerpuff Pink Tulip Root",
   "item.puffs.flowerpuff_red_tulip_root": "Flowerpuff Red Tulip Root",
   "item.puffs.flowerpuff_white_tulip_root": "Flowerpuff White Tulip Root",
-  "item.puffs.flowerpuff_wither_rose_root": "Flowerpuff Wither Rose Poppy Root",
-
-  "block.puffs.blank_puff": "Blankpuff",
+  "item.puffs.flowerpuff_wither_rose_root": "Flowerpuff Wither Rose Root",
 
   "item.puffs.bomb": "Bomb",
 
@@ -48,5 +47,7 @@
   "advancements.puffs.ride_jumbo_chorupuff.title": "Land Strider",
   "advancements.puffs.ride_jumbo_chorupuff.description": "Ride a jumbopuff",
   "advancements.puffs.root.title": "Puffs",
-  "advancements.puffs.root.description": "Do you think i'll become puffy?"
+  "advancements.puffs.root.description": "Do you think i'll become puffy?",
+
+  "effect.puffs.chorus_nausea": "Chorus Nausea"
 }

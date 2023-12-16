@@ -1,9 +1,12 @@
 package net.gravity.puffs.item;
 
+import net.gravity.puffs.effect.ModEffects;
 import net.gravity.puffs.entity.ModEntities;
 import net.gravity.puffs.PuffsMain;
 import net.gravity.puffs.entity.custom.puff.Flowerpuff;
 import net.gravity.puffs.item.custom.*;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -29,6 +32,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntities.JUMBO_CHORUPUFF, 4661575,8149884, new Item.Properties().tab(ModCreativeTabs.JUMBO_PUFFS_TAB)));
     public static final RegistryObject<Item> BOMB = ITEMS.register("bomb",
             () -> new BombItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+    public static final RegistryObject<Item> CHORUS_BREAD = ITEMS.register("chorus_bread",
+            () -> new Item(new Item.Properties().food(new FoodProperties.Builder().nutrition(8)
+                    .saturationMod(0.68F)
+                    .effect(() -> new MobEffectInstance(ModEffects.CHORUS_NAUSEA.get(), 300, 1), 0.2f).build()).tab(ModCreativeTabs.PUFFS_TAB)));
     public static final RegistryObject<Item> CHORUPUFF_ROOT = ITEMS.register("chorupuff_root",
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.CHORUPUFF.get()));
     public static final RegistryObject<Item> BOMBPUFF_ROOT = ITEMS.register("bombpuff_root",
@@ -37,12 +44,12 @@ public class ModItems {
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.LAVAPUFF.get()));
     public static final RegistryObject<Item> WATERPUFF_ROOT = ITEMS.register("waterpuff_root",
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.WATERPUFF.get()));
-    public static final RegistryObject<Item> PUFF_JOURNAL_BOOK = ITEMS.register("puff_journal_book",
-            () -> new PuffJournalBookItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
-
+//    public static final RegistryObject<Item> PUFF_JOURNAL_BOOK = ITEMS.register("puff_journal_book",
+//            () -> new PuffJournalBookItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
     static {
         registerFlowerRoots();
     }
+
 
     public static void registerFlowerRoots() {
         for(Flowerpuff.FlowerType flowerType: Flowerpuff.FlowerType.values()){

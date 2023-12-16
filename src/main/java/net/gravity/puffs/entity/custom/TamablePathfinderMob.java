@@ -76,7 +76,7 @@ public class TamablePathfinderMob extends PathfinderMob implements OwnableEntity
     }
 
     /**
-     * Play the taming effect, will either be hearts or smoke depending on status
+     * Play the taming mob_effect, will either be hearts or smoke depending on status
      */
     protected void spawnTamingParticles(boolean pTamed) {
         ParticleOptions particleoptions = ParticleTypes.HEART;
