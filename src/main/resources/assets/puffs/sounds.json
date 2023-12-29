@@ -1,0 +1,10 @@
+{
+  "peaceful_world": {
+    "sounds": [
+      {
+        "name": "puffs:peaceful_world",
+        "stream": true
+      }
+    ]
+  }
+}

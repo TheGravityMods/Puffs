@@ -8,6 +8,7 @@ import net.gravity.puffs.entity.client.PuffRenderer;
 import net.gravity.puffs.entity.client.WaterProjectileRenderer;
 import net.gravity.puffs.entity.custom.puff.Lavapuff;
 import net.gravity.puffs.item.ModItems;
+import net.gravity.puffs.sound.ModSounds;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Mob;
@@ -33,6 +34,7 @@ public class PuffsMain {
         ModItems.register(modEventBus);
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModSounds.register(modEventBus);
 //        ModBiomes.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         modEventBus.addListener(this::commonSetup);
