@@ -5,9 +5,12 @@ import net.gravity.puffs.entity.ModEntities;
 import net.gravity.puffs.PuffsMain;
 import net.gravity.puffs.entity.custom.puff.Flowerpuff;
 import net.gravity.puffs.item.custom.*;
+import net.gravity.puffs.sound.ModSounds;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.RecordItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -46,6 +49,10 @@ public class ModItems {
             () -> new PuffRootItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB), ModEntities.WATERPUFF.get()));
 //    public static final RegistryObject<Item> PUFF_JOURNAL_BOOK = ITEMS.register("puff_journal_book",
 //            () -> new PuffJournalBookItem(new Item.Properties().tab(ModCreativeTabs.PUFFS_TAB)));
+    public static final RegistryObject<Item> PUFFS_WORLD = ITEMS.register("peaceful_world",
+        () -> new RecordItem(7, ModSounds.PEACEFUL_WORLD.get(), (new Item.Properties()).stacksTo(1).tab(ModCreativeTabs.PUFFS_TAB).rarity(Rarity.RARE), 150));
+
+
     static {
         registerFlowerRoots();
     }
