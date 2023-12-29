@@ -12,7 +12,7 @@ public class ModSounds {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, PuffsMain.MOD_ID);
 
-    public static final RegistryObject<SoundEvent> PEACEFUL_WORLD = registerSoundEvent("peaceful_world");
+    public static final RegistryObject<SoundEvent> PEACEFUL_WORLD = registerSoundEvent("disc.peaceful_world");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String sound) {
         return SOUND_EVENTS.register(sound, () -> new SoundEvent(new ResourceLocation(PuffsMain.MOD_ID, sound)));

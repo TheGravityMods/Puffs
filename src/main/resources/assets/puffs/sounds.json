@@ -1,5 +1,6 @@
 {
-  "peaceful_world": {
+  "disc.peaceful_world": {
+    "category": "disc",
     "sounds": [
       {
         "name": "puffs:peaceful_world",
